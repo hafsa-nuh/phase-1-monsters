@@ -1,12 +1,6 @@
 document.addEventListener("DOMContentLoaded", init)
 let currentPage = 0;
 
-function init() {
-  getMonsters()
-  monsterForm()
-  backAndForward()
-}
-
 // getting the monsters
 function getMonsters(page) {
   fetch(`http://localhost:3000/monsters/?_limit=50&_page=${page}`)
@@ -18,7 +12,7 @@ function getMonsters(page) {
   })
 }
 
-// making cards for the monsters
+// making cards for the monsters and appendding it into the div with the monster-container ID
 function makeMonsterCard(monster) {
   const div = document.createElement("div")
 
@@ -36,19 +30,23 @@ function makeMonsterCard(monster) {
   document.querySelector("#monster-container").appendChild(div)
 }
 
-// making the form, input and button
+// creating the form, 3 inputs and button
 function monsterForm() {
   const form = document.createElement("form")
   form.id = "monster-form"
+
   const name = document.createElement("input")
   name.id = "name"
   name.placeholder ="Name..."
+
   const age = document.createElement("input")
   age.id = "age"
   age.placeholder ="Age..."
+
   const description = document.createElement("input")
   description.id = "description"
   description.placeholder ="Description..."
+
   const btn = document.createElement("button")
   btn.innerText = "Create"
 
@@ -58,6 +56,7 @@ function monsterForm() {
 
   submitForm()
 }
+
 
 // making the submitting form interactive
 function submitForm() {
@@ -69,7 +68,7 @@ function submitForm() {
   })
 }
 
-// selecting a monster by add name,age and description search
+// selecting a monster by adding name, age and description search
 function newMonster() {
   const name = document.querySelector("#name")
   const age = document.querySelector("#age")
@@ -101,6 +100,13 @@ function backAndForward() {
   back.addEventListener("click", pageDown)
   const forward = document.querySelector("#forward")
   forward.addEventListener("click", pageUp)
+}
+
+//initilazing the DOM event listener
+function init() {
+  getMonsters()
+  monsterForm()
+  backAndForward()
 }
 
 // going back to the previous page
